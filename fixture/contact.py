@@ -9,6 +9,12 @@ class ContactHelper:
     def create(self, contact):
         wd = self.app.wd
         self.open_contact_creation_page()
+        self.fill_contact_form(contact)
+        wd.find_element_by_name("submit").click()
+        self.return_to_contacts_page()
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -21,17 +27,15 @@ class ContactHelper:
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(contact.title)
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
         wd.find_element_by_name("company").send_keys(contact.company)
+        wd.find_element_by_name("title").click()
+        wd.find_element_by_name("title").clear()
+        wd.find_element_by_name("title").send_keys(contact.title)
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
         wd.find_element_by_name("address").send_keys(contact.address)
-        wd.find_element_by_xpath("//div[@id='content']//label[.='Telephone']").click()
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_xpath("//div[@id='content']//label[.='Telephone']").click()
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
@@ -72,7 +76,6 @@ class ContactHelper:
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
         wd.find_element_by_name("ayear").click()
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address_2)
@@ -82,8 +85,22 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
-        wd.find_element_by_name("submit").click()
 
     def open_contact_creation_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
+
+    def edit(self, contact):
+        wd = self.app.wd
+        # click edit
+        wd.find_element_by_xpath('//*[@title="Edit"]').click()
+        # edit the form
+        self.fill_contact_form(contact)
+        wd.find_element_by_name("update").click()
+        self.return_to_contacts_page()
+
+    def delete(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_css_selector('//*[@value="Delete"]').click()
+        self.return_to_contacts_page()
