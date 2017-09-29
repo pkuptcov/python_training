@@ -88,8 +88,8 @@ class ContactHelper:
 
     def open_contact_creation_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("/") and len(wd.find_elements_by_name("new")) > 0):
-            wd.find_element_by_link_text("groups").click()
+        if not (wd.current_url.endswith("/")):
+            wd.find_element_by_link_text("home").click()
         wd.find_element_by_link_text("add new").click()
 
     def edit(self, contact):
