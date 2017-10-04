@@ -88,7 +88,7 @@ class ContactHelper:
 
     def open_contact_creation_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("addressbook/")):
+        if not (wd.current_url.endswith("/edit.php")):
             wd.find_element_by_link_text("home").click()
         wd.find_element_by_link_text("add new").click()
 
