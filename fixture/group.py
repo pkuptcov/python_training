@@ -12,11 +12,8 @@ class GroupHelper:
     def create(self, group):
         wd = self.app.wd
         self.open_groups_page()
-        # init group creation
         wd.find_element_by_name("new").click()
-        # fill group form
         self.fill_group_form(group)
-        # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
         self.group_cache = None
@@ -30,8 +27,6 @@ class GroupHelper:
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
-            wd.find_element_by_name(field_name).click()
-            wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
     def delete_first_group(self):

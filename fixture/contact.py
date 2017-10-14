@@ -22,35 +22,17 @@ class ContactHelper:
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
-        wd.find_element_by_name("middlename").send_keys(contact.middlename)
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
-        wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        wd.find_element_by_name("company").send_keys(contact.company)
-        wd.find_element_by_name("title").send_keys(contact.title)
-        wd.find_element_by_name("address").send_keys(contact.address)
-        wd.find_element_by_xpath("//div[@id='content']//label[.='Telephone']").click()
-        wd.find_element_by_name("home").send_keys(contact.home)
-        wd.find_element_by_name("mobile").send_keys(contact.mobile)
-        wd.find_element_by_name("work").send_keys(contact.work)
-        wd.find_element_by_name("fax").send_keys(contact.fax)
-        wd.find_element_by_name("email").send_keys(contact.email)
-        wd.find_element_by_name("email2").send_keys(contact.email_2)
-        wd.find_element_by_name("email3").send_keys(contact.email_3)
-        wd.find_element_by_name("homepage").send_keys(contact.homepage)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[20]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[20]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[13]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[13]").click()
-        wd.find_element_by_name("byear").send_keys(contact.byear)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[19]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[19]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[2]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[2]").click()
-        wd.find_element_by_name("ayear").send_keys(contact.ayear)
-        wd.find_element_by_name("address2").send_keys(contact.address_2)
-        wd.find_element_by_name("phone2").send_keys(contact.phone_2)
-        wd.find_element_by_name("notes").send_keys(contact.notes)
+        self.change_contact_value("firstname", contact.firstname)
+        self.change_contact_value("lastname", contact.lastname)
+        self.change_contact_value("nickname", contact.nickname)
+        self.change_contact_value("middlename", contact.middlename)
+        self.change_contact_value("address", contact.address)
+        self.change_contact_value("company", contact.company)
+        self.change_contact_value("home", contact.home)
+        self.change_contact_value("mobile", contact.mobile)
+        self.change_contact_value("work", contact.work)
+        self.change_contact_value("fax", contact.fax)
+        self.change_contact_value("email", contact.email)
 
     def open_contact_creation_page(self):
         wd = self.app.wd
@@ -120,3 +102,11 @@ class ContactHelper:
     def edit_first_contact(self):
         wd = self.app.wd
         self.select_contact_by_index(0)
+
+
+    def change_contact_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
